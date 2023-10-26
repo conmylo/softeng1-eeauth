@@ -1,0 +1,863 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/KMYLONAS_1/SoftwareEngineering1/1.0.0
+info:
+  version: "1.0.0"
+  title: home-iot-api
+  description: The API for the EatBacon IOT project
+  
+tags:
+- name: PersonalInfo
+  description: PersonalInfo endpoints
+- name: Income
+  description: Income endpoints
+- name: Expense
+  description: Expense endpoints
+- name: Goal
+  description: Goal endpoints
+- name: Notification
+  description: Notification endpoints
+  
+
+paths:
+  '/user/personalinfo':
+    post:
+      tags:
+        - PersonalInfo
+      operationId: postPersonalInfo
+      responses:
+        '201':
+          description: Successful account creation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request, account could not be created.
+      x-swagger-router-controller: PersonalInfoController
+  '/user/{userID}/personalinfo':
+    get:
+      tags:
+        - PersonalInfo
+      operationId: getPersonalInfo
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request, could not fetch personal info.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: PersonalInfoController
+    put:
+      tags:
+        - PersonalInfo
+      operationId: putPersonalInfo
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, personal info edit was succesful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request, could not edit personal info.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: PersonalInfoCOntroller  
+  '/user/{userID}/income':
+    get:
+      tags:
+        - Income
+      operationId: getIncomes
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, incomes list was loaded succesfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncomesList'
+        '400':
+          description: Bad request, could not fetch incomes list.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: IncomeController
+    post:
+      tags:
+        - Income
+      operationId: postIncome
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '201':
+          description: Successful income creation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Income'
+        '400':
+          description: Bad request, income could not be created.
+      x-swagger-router-controller: IncomeController
+  '/user/{userID}/income/{incomeID}':
+    get:
+      tags:
+        - Income
+      operationId: getIncomeByID
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: incomeID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, income was loaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Income'
+        '400':
+          description: Bad request, could not fetch income.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: IncomeController
+    put:
+      tags:
+        - Income
+      operationId: putIncomebyID
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: incomeID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, income was edited successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Income'
+        '400':
+          description: Bad request, could not edit income.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: IncomeController
+    delete:
+      tags:
+        - Income
+      operationId: deleteIncomeBYID
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: incomeID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, income was deleted successfully.
+        '400':
+          description: Bad request, could not delete income.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: IncomeController      
+  '/user/{userID}/expense':
+    get:
+      tags:
+        - Expense
+      operationId: getExpenses
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, expenses list was loaded succesfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpensesList'
+        '400':
+          description: Bad request, could not fetch expenses list.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: ExpenseController
+    post:
+      tags:
+        - Expense
+      operationId: postExpense
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '201':
+          description: Successful expense creation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+        '400':
+          description: Bad request, expense could not be created.
+      x-swagger-router-controller: ExpenseController
+  '/user/{userID}/expense/{expenseID}':
+    get:
+      tags:
+        - Expense
+      operationId: getExpenseByID
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: expenseID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, expense was loaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+        '400':
+          description: Bad request, could not fetch expense.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: ExpenseController
+    put:
+      tags:
+        - Expense
+      operationId: putExpenseByID
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: expenseID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, expense was edited successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+        '400':
+          description: Bad request, could not edit expense.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: ExpenseController
+    delete:
+      tags:
+        - Expense
+      operationId: deleteExpenseByID
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: expenseID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, expense was deleted successfully.
+        '400':
+          description: Bad request, could not delete expense.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: ExpenseController
+  '/user/{userID}/goal':
+    get:
+      tags:
+        - Goal
+      operationId: getGoals
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, goals list was loaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalsList'
+        '400':
+          description: Bad request, could not fetch goals list.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: GoalController
+  '/user/{userID}/goal/{goalID}':
+    get:
+      tags:
+        - Goal
+      operationId: getGoalByID
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: goalID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, goal was loaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '400':
+          description: Bad request, could not load goal.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: GoalController
+    put:
+      tags:
+        - Goal
+      operationId: putGoal
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: goalID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Success, goal was edited successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '400':
+          description: Bad request, could not edit goal.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: GoalController 
+  '/user/{userID}/notifications':
+    get:
+      tags:
+        - Notification
+      operationId: getNotifications
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsList'
+        '400':
+          description: Bad request, could not fetch notifications list.
+        '404':
+          description: Not found.
+      x-swagger-router-controller: NotificationController 
+
+      
+      
+  '/lighting/dimmers/{deviceId}/{value}/timer/{timeunit}':
+    post:
+      tags:
+        - Z-Wave
+      description: sets a dimmer to a specific value on a timer
+      operationId: setDimmerTimer
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: timeunit
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: units
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - seconds
+              - minutes
+              - milliseconds
+            default: milliseconds
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      x-swagger-router-controller: ZWave
+  '/lighting/switches/{deviceId}/{value}':
+    post:
+      tags:
+        - Z-Wave
+      operationId: setSwitch
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - true
+              - false
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      x-swagger-router-controller: ZWave
+  '/lighting/switches/{deviceId}/{value}/timer/{minutes}':
+    post:
+      tags:
+        - Z-Wave
+      description: sets a switch to a specific value on a timer
+      operationId: setSwitchTimer
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - true
+              - false
+        - name: minutes
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      x-swagger-router-controller: ZWave
+  /lightingSummary:
+    get:
+      tags:
+        - Z-Wave
+      operationId: getLightingSummary
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LightingSummary'
+      x-swagger-router-controller: ZWave
+  /temperature:
+    get:
+      tags:
+        - Environment
+      operationId: temperatureSummary
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemperatureSummary'
+      x-swagger-router-controller: Environment
+  '/temperature/forecast/{days}':
+    get:
+      tags:
+        - Environment
+      operationId: getForecast
+      parameters:
+        - name: days
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: the forecast
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastResponse'
+      x-swagger-router-controller: Environment
+  '/temperature/{zoneId}':
+    get:
+      tags:
+        - Environment
+      operationId: getZoneTemperature
+      parameters:
+        - name: zoneId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Zone temperature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemperatueZoneStatus'
+      x-swagger-router-controller: Environment
+  '/temperature/{zoneId}/heater':
+    get:
+      tags:
+        - Environment
+      description: gets the state of the heater
+      operationId: getHeaterState
+      parameters:
+        - name: zoneId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: heater state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeaterState'
+      x-swagger-router-controller: Environment
+  '/temperature/{zoneId}/heater/{state}':
+    post:
+      tags:
+        - Environment
+      description: turns the heater on or off
+      operationId: setHeaterState
+      parameters:
+        - name: zoneId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - false
+              - true
+      responses:
+        '200':
+          description: Status of the operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      x-swagger-router-controller: Environment
+  '/zones/{zoneId}/quiet':
+    get:
+      tags:
+        - Zones
+      operationId: quietZone
+      parameters:
+        - name: zoneId
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - basement
+              - first-floor
+              - second-floor
+      responses:
+        '200':
+          description: ok
+      x-swagger-router-controller: Zones
+components:
+  schemas:
+    Income:
+      type: object
+      required:
+      - incomeID
+      - userID
+      - incomeDate
+      properties:
+        incomeID:
+          type: integer
+          format: int32
+        userID:
+          type: integer
+          format: int32
+        incomeSource:
+          type: string
+        incomeDescription:
+          type: string
+        incomeDate:
+          type: string
+          format: date-time
+    Expense:
+      type: object
+      required:
+      - expenseID
+      - userID
+      - expenseDate
+      properties:
+        expenseID:
+          type: integer
+        userID:
+          type: integer
+        expenseSource:
+          type: string
+        expenseDescription:
+          type: string
+        expenseDate:
+          type: string
+          format: date-time
+    Goal:
+      type: object
+      required:
+      - goalID
+      - userID
+      - amount
+      - months
+      properties:
+        goalID:
+          type: integer
+        userID:
+          type: integer
+        amount:
+          type: number
+          format: float
+        months:
+          type: integer
+    Notification:
+      type: object
+      properties:
+        userID: 
+          type: integer
+        text:
+          type: string
+        notificationDate:
+          type: string
+          format: date-time
+    User:
+      type: object
+      required:
+      - userID
+      - username
+      - fullname
+      - password
+      - email
+      properties:
+        userID:
+          type: integer
+        username:
+          type: string
+        fullname:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        age:
+          type: integer
+          
+    IncomesList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Income'
+    ExpensesList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Expense'
+    GoalsList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Goal'
+    NotificationsList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Notification'
+      
+    TemperatureSummary:
+      type: object
+      required: 
+      - zones
+      - zoneStatus
+      properties:
+        zones:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemperatureZone'
+        zoneStatus:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemperatueZoneStatus'
+      description: ok
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+          example: Todo bien
+    ForecastResponse:
+      type: object
+      properties:
+        city:
+          $ref: '#/components/schemas/City'
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/Forecast'
+    DeviceRegistrationInfo:
+      type: object
+      properties:
+        uri:
+          type: string
+          format: uri
+          example: 'http://10.0.0.220:8080'
+        id:
+          type: string
+          format: uuid
+          example: 0729a580-2240-11e6-9eb5-0002a5d5c51b
